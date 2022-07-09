@@ -1,0 +1,65 @@
+<div class="container">
+    <p-toast  position="bottom-right"></p-toast>
+    <div class="grid">
+<button pButton (click)="showAddDialog()" class="p-button-info" label="اضافه" icon="pi pi-plus" iconPos="right" ></button>
+    </div>
+<br>
+
+    <p-table  [value]="tableData" responsiveLayout="scroll">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Description</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-item>
+            <tr>
+                <td>{{item.id}}</td>
+                <td>{{item.name}}</td>
+                <td>{{item.desc}}</td>
+                <td>
+                    <!-- <button pButton  icon="pi pi-times" class="p-button-rounded p-button-danger p-button-sm"> </button>
+                    <button pButton   icon="pi pi-pencil" class="p-button-rounded p-button-warning"> </button> -->
+                  <div fxLayout="row" fxLayoutAlign="end" fxLayoutGap="1"> 
+                    <button (click)="showDeleteDialog()" fxFlexOffset="1"     pButton  pRipple type="button" icon="pi pi-times" class="p-button-rounded p-button-danger p-button-outlined"></button>
+                    <button  (click)="showEditDialog()"  pButton pRipple type="button" icon="pi pi-pencil" class="p-button-rounded p-button-warning p-button-outlined"></button>
+                   
+                  </div>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
+
+<p-dialog header="add new item  " [(visible)]="addDialog" >
+    <form [formGroup]="AddForm">
+    <div class="grid">
+        <div class="col-4">
+                <label for="Name"> Name</label>
+                <input id="Name" formControlName="name"  type="text" pInputText> 
+        </div>
+      
+        <div class="col-4">
+                <label for="Desc"> Description</label>
+                <input  id="Desc"  formControlName="name"  type="text" pInputText> 
+        </div>
+
+</div>
+<br>
+<br>
+    <div fxLayout="row" fxLayoutAlign="center" fxLayoutGap="20">
+        <button pButton  fxFlex="20" fxFlexOffset="2"  (click)="addNewItem()"  type="button" label="Save"  class="p-button-info "></button>
+        <button pButton  fxFlex="20"   type="button"  label="Cancel" class="p-button-danger " ></button>
+
+</div>
+</form>
+</p-dialog>
+
+
+<!-- delete -->
+<p-confirmDialog acceptLabel="Confirm" rejectLabel="Cancel"
+rejectButtonStyleClass="p-button-danger"
+acceptButtonStyleClass="p-button-info"
+[breakpoints]="{'960px': '75vw', '640px': '100vw'}" [style]="{width: '50vw'}"
+ header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
