@@ -19,7 +19,7 @@ import { NGPrimeModule } from 'src/_core/NGPrime.Module';
     NGPrimeModule,
     FormsModule,
     ReactiveFormsModule,
-    FlexLayoutModule
+    FlexLayoutModule,
     
   ],
   providers:[GlobService]

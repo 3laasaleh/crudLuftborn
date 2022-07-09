@@ -19,7 +19,7 @@ export class GlobService {
   getByID(url: string, id: any): Observable<any> {
 
     return this.http.get<any>(
-      environment.baseUrl + url + "/?id="+id
+      environment.baseUrl + url + "/"+id
      );
 
   }
@@ -31,7 +31,7 @@ export class GlobService {
     return this.http.put<any>(environment.baseUrl + url, data);
   }
   delete(url: string, id: any): Observable<any> {
-    return this.http.delete<any>(environment.baseUrl + url + "?id=" + id);
+    return this.http.delete<any>(environment.baseUrl + url + "/" + id);
   }
   
 

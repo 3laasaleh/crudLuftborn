@@ -2,7 +2,15 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ItemsComponent } from './items.component';
 
-const routes: Routes = [{ path: '', component: ItemsComponent }];
+const routes: Routes = [
+{
+  path:"",redirectTo:"index",pathMatch:"full"
+},
+{
+  path:"index",
+  component:ItemsComponent
+
+}];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

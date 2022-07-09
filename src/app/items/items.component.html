@@ -1,7 +1,7 @@
 <div class="container">
     <p-toast  position="bottom-right"></p-toast>
     <div class="grid">
-<button pButton (click)="showAddDialog()" class="p-button-info" label="اضافه" icon="pi pi-plus" iconPos="right" ></button>
+<button pButton (click)="addDialog=true" class="p-button-info" label="add new item" icon="pi pi-plus" iconPos="right" ></button>
     </div>
 <br>
 
@@ -11,6 +11,7 @@
                 <th>#</th>
                 <th>Name</th>
                 <th>Description</th>
+                <th>Actions</th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-item>
@@ -22,8 +23,8 @@
                     <!-- <button pButton  icon="pi pi-times" class="p-button-rounded p-button-danger p-button-sm"> </button>
                     <button pButton   icon="pi pi-pencil" class="p-button-rounded p-button-warning"> </button> -->
                   <div fxLayout="row" fxLayoutAlign="end" fxLayoutGap="1"> 
-                    <button (click)="showDeleteDialog()" fxFlexOffset="1"     pButton  pRipple type="button" icon="pi pi-times" class="p-button-rounded p-button-danger p-button-outlined"></button>
-                    <button  (click)="showEditDialog()"  pButton pRipple type="button" icon="pi pi-pencil" class="p-button-rounded p-button-warning p-button-outlined"></button>
+                    <button (click)="showDeleteDialog(item)" fxFlexOffset="1"     pButton  pRipple type="button" icon="pi pi-times" class="p-button-rounded p-button-danger p-button-outlined"></button>
+                    <button  (click)="showEditDialog(item)"  pButton pRipple type="button" icon="pi pi-pencil" class="p-button-rounded p-button-warning p-button-outlined"></button>
                    
                   </div>
                 </td>
@@ -32,30 +33,64 @@
     </p-table>
 </div>
 
-<p-dialog header="add new item  " [(visible)]="addDialog" >
-    <form [formGroup]="AddForm">
+<p-dialog #addD header="add new item  " [(visible)]="addDialog"  [style]="{width: '50vw'}">
+    <form [formGroup]="addForm" >
     <div class="grid">
-        <div class="col-4">
-                <label for="Name"> Name</label>
+       
+            <span class="p-float-label">
                 <input id="Name" formControlName="name"  type="text" pInputText> 
-        </div>
+                <label for="Name"> Name </label>
+
+            </span>
+    
       
-        <div class="col-4">
+       
+            <span class="p-float-label">
+                <input  id="Desc"  formControlName="desc"  type="text" pInputText>
                 <label for="Desc"> Description</label>
-                <input  id="Desc"  formControlName="name"  type="text" pInputText> 
-        </div>
+
+            </span> 
+      
 
 </div>
 <br>
 <br>
     <div fxLayout="row" fxLayoutAlign="center" fxLayoutGap="20">
-        <button pButton  fxFlex="20" fxFlexOffset="2"  (click)="addNewItem()"  type="button" label="Save"  class="p-button-info "></button>
-        <button pButton  fxFlex="20"   type="button"  label="Cancel" class="p-button-danger " ></button>
+        <button pButton  [disabled]="addForm.invalid"autofocus (click)="addNewItem()" fxFlex="20" fxFlexOffset="2"    type="button" label="Save"  class="p-button-info "></button>
+        <button pButton  fxFlex="20" autofocus    (click)="addDialog=false" type="button"  label="Cancel" class="p-button-danger " ></button>
 
 </div>
 </form>
 </p-dialog>
+<p-dialog #editD header="edit item  " [(visible)]="editDialog"  [style]="{width: '50vw'}">
+    <form [formGroup]="editForm" >
+    <div class="grid">
+   
+            <span class="p-float-label">
+                <input  id="Name" formControlName="name"   type="text" pInputText> 
+                <label for="Name"> Name </label>
 
+            </span>
+    
+      
+      
+            <span class="p-float-label" >
+                <input  id="Desc"  formControlName="desc"  type="text" pInputText>
+                <label for="Desc"> Description</label>
+
+            </span> 
+        
+
+</div>
+<br>
+<br>
+    <div fxLayout="row" fxLayoutAlign="center" fxLayoutGap="20">
+        <button pButton [disabled]="editForm.invalid" (click)="updateItem()" autofocus  fxFlex="20" fxFlexOffset="2"    type="button" label="Save"  class="p-button-info "></button>
+        <button pButton  fxFlex="20" autofocus    (click)="editDialog=false" type="button"  label="Cancel" class="p-button-danger " ></button>
+
+</div>
+</form>
+</p-dialog>
 
 <!-- delete -->
 <p-confirmDialog acceptLabel="Confirm" rejectLabel="Cancel"
